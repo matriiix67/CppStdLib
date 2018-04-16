@@ -1,0 +1,31 @@
+//
+// Created by Bourne on 2018/1/4.
+//
+
+#include <iostream>
+#include <utility>
+#include <tuple>
+
+using namespace std;
+
+class Foo {
+public:
+    Foo(tuple<int, float>) {
+        cout << "Foo::Foo(tuple)" << endl;
+    }
+
+    template <typename... Args>
+    Foo(Args... args) {
+        cout << "Foo::Foo(args...)" << endl;
+    }
+};
+
+
+int main(int argc, char* argv[])
+{
+    tuple<int, float> t(1, 2.22);
+
+    pair<int, Foo> p1(42, t);
+    pair<int, Foo> p2(piecewise_construct, make_tuple(42), t);
+    return 0;
+}
